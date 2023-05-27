@@ -53,6 +53,9 @@
                 <a href="/logout">
                     <button>Logout</button>
                 </a>
+                <a href="/register">
+
+                </a>
             </div>
             <div id="login-button" style="display: block">
                 <a href="/login">

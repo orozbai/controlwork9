@@ -1,18 +1,20 @@
 package com.example.controlwork9.controller;
 
+import com.example.controlwork9.dto.UserRegistrationDto;
+import com.example.controlwork9.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping("/")
 public class WebController {
+    final private UserService userService;
+
     @GetMapping()
     public String getMainPage() {
         return "main";
@@ -29,6 +31,16 @@ public class WebController {
         return "redirect:/login";
     }
 
+    @GetMapping("register")
+    public String register() {
+        return "register";
+    }
+
+    @PostMapping("register")
+    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDto registrationDto) {
+        userService.registerUser(registrationDto);
+        return ResponseEntity.ok("Вы успешно зарегестрировались!");
+    }
     @GetMapping("worklog")
     public String workLog() {
         return "worklog";

@@ -119,3 +119,30 @@ function removeChild() {
         develop.removeChild(develop.firstChild);
     }
 }
+
+const loginButton = document.getElementById('login-button');
+window.addEventListener('load', async function (e) {
+    await fetch(basicUrl + 'user/current-user').then(response => {
+        if (!response.ok) {
+            throw new Error('Ошибка получения данных');
+        }
+        return response.json();
+    }).then(data => {
+        console.log(data.user)
+        const username = document.getElementById('username');
+        const logout = document.getElementById('logout-button');
+        if (loginButton) {
+            if (data.user) {
+                username.innerHTML = data.user;
+                username.style.display = 'block';
+                loginButton.style.display = 'none';
+                logout.style.display = 'block';
+            } else {
+                username.innerHTML = '';
+                username.style.display = 'none';
+                loginButton.style.display = 'block';
+                logout.style.display = 'none';
+            }
+        }
+    });
+});

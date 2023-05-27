@@ -37,9 +37,17 @@
             </div>
         </div>
         <div id="right-column">
-            <a href="/login">
-                <button type="button">Login</button>
-            </a>
+            <p id="username" style="display:block;"></p>
+            <div id="logout-button" style="display: none">
+                <a href="/logout">
+                    <button>Logout</button>
+                </a>
+            </div>
+            <div id="login-button" style="display: block">
+                <a href="/login">
+                    <button type="button">Login</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>

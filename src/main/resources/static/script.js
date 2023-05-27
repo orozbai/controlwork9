@@ -4,20 +4,6 @@ const basicUrl = 'http://localhost:8089/';
 
 window.addEventListener('load', async function (e) {
     e.preventDefault();
-    await fetch(basicUrl + 'user/current-user')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ошибка получения данных');
-            }
-            return response.json();
-        })
-        .then(data => {
-            //исчезновение кнопки и появление data.user
-        });
-});
-
-window.addEventListener('load', async function (e) {
-    e.preventDefault();
     await fetch(basicUrl + 'tasks')
         .then(response => response.json())
         .then(data => {
@@ -101,12 +87,69 @@ async function nextPage(id, event) {
     event.preventDefault();
     const digits = id.match(/\d/g);
     const newId = digits.join('');
-    await fetch(basicUrl + `tasks?page=${newId}`)
-        .then(response => response.json())
-        .then(data => {
-            removeChild();
-            createTasks(data);
-        });
+    localStorage.setItem('page', newId);
+    const name = localStorage.getItem('status');
+    if (name) {
+        await fetch(basicUrl + `tasks?page=${newId}&name${name}`)
+            .then(response => response.json())
+            .then(data => {
+                removeChild();
+                createTasks(data);
+            });
+    } else {
+        await fetch(basicUrl + `tasks?page=${newId}`)
+            .then(response => response.json())
+            .then(data => {
+                removeChild();
+                createTasks(data);
+            });
+    }
+}
+
+async function prevPage(event) {
+    event.preventDefault();
+    const name = localStorage.getItem('status');
+    const num = localStorage.getItem('page');
+    let ids = num - 1;
+    if (ids < 0) {
+        ids = 0;
+    }
+    if (ids > -1) {
+        console.log(ids)
+        if (name) {
+            await fetch(basicUrl + `tasks?page=${ids}&name${name}`)
+                .then(response => response.json())
+                .then(data => {
+                    removeChild();
+                    createTasks(data);
+                });
+        } else {
+            console.log(ids + 'ss')
+            await fetch(basicUrl + `tasks?page=${ids}`)
+                .then(response => response.json())
+                .then(data => {
+                    removeChild();
+                    createTasks(data);
+                });
+        }
+    }
+}
+
+async function searchByName(event) {
+    const value = event.target.value;
+    if (value === 'all') {
+        localStorage.removeItem('status')
+        localStorage.removeItem('page');
+    } else {
+        localStorage.removeItem('page');
+        localStorage.setItem('status', value);
+        await fetch(basicUrl + `tasks?name=${value}`)
+            .then(response => response.json())
+            .then(data => {
+                removeChild();
+                createTasks(data);
+            });
+    }
 }
 
 function removeChild() {
@@ -128,20 +171,25 @@ window.addEventListener('load', async function (e) {
         }
         return response.json();
     }).then(data => {
-        console.log(data.user)
         const username = document.getElementById('username');
         const logout = document.getElementById('logout-button');
+        const searchTasks = document.getElementById('search-tasks');
         if (loginButton) {
             if (data.user) {
                 username.innerHTML = data.user;
                 username.style.display = 'block';
                 loginButton.style.display = 'none';
                 logout.style.display = 'block';
+                searchTasks.style.display = 'block';
             } else {
                 username.innerHTML = '';
                 username.style.display = 'none';
                 loginButton.style.display = 'block';
                 logout.style.display = 'none';
+                searchTasks.style.display = 'none';
+            }
+            if (data.user === 'MANAGER') {
+                const createTask = document.getElementById('');
             }
         }
     });

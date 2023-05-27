@@ -29,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/login", "/").permitAll()
-                .antMatchers("/manager").hasRole("MANAGER")
                 .anyRequest().permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/login?logout").clearAuthentication(true);

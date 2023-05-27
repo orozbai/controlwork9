@@ -34,6 +34,6 @@ create table tasks
     foreign key (user_id) references users (id) on delete cascade,
     status_id bigint not null,
     foreign key (status_id) references statuses (id) on delete cascade,
-    worklog_id bigint not null,
+    worklog_id bigint,
     foreign key (worklog_id) references worklogs (id) on delete cascade
 );

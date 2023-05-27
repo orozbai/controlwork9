@@ -12,11 +12,17 @@
 <div class="container">
     <div id="main">
         <div id="left-column">
-
+            <div id="search-tasks" style="display: none">
+                <button value="all" onclick="searchByName(event)">All</button>
+                <button value="created" onclick="searchByName(event)">Created</button>
+                <button value="done" onclick="searchByName(event)">Done</button>
+                <button value="failed" onclick="searchByName(event)">Failed</button>
+                <button value="progress" onclick="searchByName(event)">Progress</button>
+            </div>
         </div>
         <div id="content">
             <div id="pages">
-                <button onclick="nextPage('page-0',event)">0</button>
+                <button onclick="prevPage(event)">0</button>
             </div>
             <div class="content-container">
                 <div class="row">
@@ -47,6 +53,9 @@
                 <a href="/login">
                     <button type="button">Login</button>
                 </a>
+            </div>
+            <div id="create-task">
+                <a href="manager"><button>Create Task</button></a>
             </div>
         </div>
     </div>

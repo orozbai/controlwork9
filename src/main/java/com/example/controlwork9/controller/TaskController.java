@@ -7,9 +7,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,5 +38,12 @@ public class TaskController {
                     .map(taskMapper::mainPageTasks)
                     .collect(Collectors.toList());
         }
+    }
+
+    @PostMapping("/save-task")
+    public void saveTask(@RequestParam(value = "name") String name,
+                         @RequestParam(value = "id") Long id) {
+        LocalDateTime time = LocalDateTime.now();
+        taskService.saveTask(name, id, time);
     }
 }

@@ -4,7 +4,9 @@ import com.example.controlwork9.entity.Status;
 import com.example.controlwork9.entity.Task;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +23,11 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("update Task t SET t.status = :stat ")
     void updateStatus(Status stat);
 
+    @Modifying
+    @Transactional
     @Query("update Task t set t.attachments = :file where t.id = :taskId")
     void updateWorkLog(String file, Long taskId);
+
+    @Query("select t.attachments from Task as t where t.id = :id")
+    String getFileById(Long id);
 }

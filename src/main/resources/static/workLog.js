@@ -100,3 +100,54 @@ if (stat) {
         })
     })
 }
+
+async function getFile() {
+    const id = localStorage.getItem('worklog');
+    const digits = id.match(/\d/g);
+    const newId = digits.join('');
+    await fetch(base + `file?id=${newId}`).then(response => response.text())
+        .then(data => {
+            console.log(data)
+            const fileDiv = document.createElement('div');
+            const elem = document.getElementById('worklog');
+            const fileLink = document.createElement('a');
+            fileLink.innerText = data;
+            fileLink.addEventListener('click', () => getFiles(data));
+            const button = document.createElement('button');
+            button.appendChild(fileLink);
+            fileDiv.appendChild(button);
+            elem.appendChild(fileDiv);
+        })
+}
+
+async function getFiles(fileName) {
+    await fetch(`static/${fileName}`)
+        .then(response => response.blob())
+        .then(blob => {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName;
+            link.click();
+        }).catch(error => {
+            console.log('error: ', error);
+        })
+}
+
+async function uploadFile() {
+    const file = document.getElementById('file-input');
+    const id = localStorage.getItem('worklog');
+    const digits = id.match(/\d/g);
+    const newId = digits.join('');
+    const formData = new FormData();
+    formData.append('file', file.files[0]);
+    formData.append('id', newId);
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    await fetch(base + 'upload-files', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: formData
+    })
+    await getFile();
+}

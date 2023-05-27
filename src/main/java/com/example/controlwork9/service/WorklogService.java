@@ -8,6 +8,7 @@ import com.example.controlwork9.repository.TaskRepository;
 import com.example.controlwork9.repository.WorklogRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,6 +41,7 @@ public class WorklogService {
         taskRepository.updateStatus(status);
     }
 
+    @Transactional
     public void addFile(String originalFilename, Long taskId) {
         taskRepository.updateWorkLog(originalFilename, taskId);
     }

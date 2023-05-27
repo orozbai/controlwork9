@@ -38,4 +38,8 @@ public class TaskService {
                 .build();
         taskRepository.save(task);
     }
+
+    public String getFileById(Long id) {
+        return taskRepository.getFileById(id);
+    }
 }

@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,5 +48,15 @@ public class WorklogController {
     @PostMapping("upload-files")
     private void uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("id") Long taskId) {
         worklogService.addFile(file.getOriginalFilename(), taskId);
+        byte[] data;
+        String fileName = file.getOriginalFilename();
+        Path path = Paths.get("src/main/resources/static/" + fileName);
+        try {
+            data = file.getBytes();
+            Files.write(path, data);
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
     }
 }

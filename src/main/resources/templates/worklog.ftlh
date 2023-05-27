@@ -50,6 +50,11 @@
             <button type="submit" id="status-select-button">Move</button>
         </form>
     </div>
+    <div>
+        <p>Add attachment</p>
+        <input type="file" id="file-input">
+        <button onclick="uploadFile()">Add</button>
+    </div>
 </div>
 <script src="../workLog.js"></script>
 </body>

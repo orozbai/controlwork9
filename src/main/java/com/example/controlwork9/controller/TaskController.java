@@ -46,4 +46,9 @@ public class TaskController {
         LocalDateTime time = LocalDateTime.now();
         taskService.saveTask(name, id, time);
     }
+
+    @GetMapping("/file")
+    public String getFile(@RequestParam("id") Long id) {
+        return taskService.getFileById(id);
+    }
 }

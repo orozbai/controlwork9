@@ -16,6 +16,7 @@ import java.util.List;
 public class TaskService {
     final private TaskRepository taskRepository;
     final private UserService userService;
+    final private StatusService service;
 
     public List<Task> getTasksPageableToMain(Pageable pageable, String name) {
         return taskRepository.getTasksByNamePage(pageable, name);
@@ -27,9 +28,7 @@ public class TaskService {
 
     public void saveTask(String name, Long id, LocalDateTime time) {
         User user = userService.getUserById(id);
-        Status status = Status.builder()
-                .status("created")
-                .build();
+        Status status = service.getByName();
         Task task = Task.builder()
                 .name(name)
                 .attachments("link")

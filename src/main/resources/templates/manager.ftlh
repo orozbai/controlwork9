@@ -11,17 +11,16 @@
 <body>
 <div class="container">
     <div id="content">
+        <p>Create task</p>
         <div id="create-task">
             <form method="post">
                 <meta name="csrf-token" content="${_csrf.token}"/>
                 <label for="create-select"></label>
-                <button type="button">
-                    <select id="create-select" onclick="sendGet(event)">
-
-                    </select>
-                </button>
+                <select id="create-select">
+                </select>
                 <label>
-                    <input name="name" id="select-input-name" maxlength="20" minlength="1" type="text" placeholder="Name">
+                    <input name="name" id="select-input-name" maxlength="20" minlength="1" type="text"
+                           placeholder="Name">
                 </label>
                 <button id="submit-create" type="submit">Save</button>
             </form>

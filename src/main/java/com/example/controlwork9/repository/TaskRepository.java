@@ -20,4 +20,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("update Task t SET t.status = :stat ")
     void updateStatus(Status stat);
+
+    @Query("update Task t set t.attachments = :file where t.id = :taskId")
+    void updateWorkLog(String file, Long taskId);
 }

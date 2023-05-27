@@ -39,4 +39,8 @@ public class WorklogService {
         Status status = statusRepository.findByName(name);
         taskRepository.updateStatus(status);
     }
+
+    public void addFile(String originalFilename, Long taskId) {
+        taskRepository.updateWorkLog(originalFilename, taskId);
+    }
 }

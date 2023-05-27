@@ -32,4 +32,11 @@ public class WorklogController {
                             @RequestParam(value = "time") String time) {
         worklogService.saveWorklog(id, desc, time);
     }
+
+    @PostMapping("status")
+    public void saveStatus(@RequestParam(value = "name") String name) {
+        if (name.equals("failed")) {
+            worklogService.saveStatus(name);
+        }
+    }
 }

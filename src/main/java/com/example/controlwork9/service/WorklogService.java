@@ -1,7 +1,9 @@
 package com.example.controlwork9.service;
 
+import com.example.controlwork9.entity.Status;
 import com.example.controlwork9.entity.Task;
 import com.example.controlwork9.entity.Worklog;
+import com.example.controlwork9.repository.StatusRepository;
 import com.example.controlwork9.repository.TaskRepository;
 import com.example.controlwork9.repository.WorklogRepository;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.List;
 public class WorklogService {
     final private WorklogRepository worklogRepository;
     final private TaskRepository taskRepository;
+    final private StatusRepository statusRepository;
 
     public List<Worklog> getWorklogsById(Long id) {
         return worklogRepository.findWorkById(id);
@@ -30,5 +33,10 @@ public class WorklogService {
                 .task(task)
                 .build();
         worklogRepository.save(worklog);
+    }
+
+    public void saveStatus(String name) {
+        Status status = statusRepository.findByName(name);
+        taskRepository.updateStatus(status);
     }
 }

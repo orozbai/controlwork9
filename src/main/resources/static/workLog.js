@@ -11,7 +11,7 @@ window.addEventListener('load', async function (e) {
         .then(response => response.json())
         .then(data => {
             removeChildWork();
-           formWorklogs(data);
+            formWorklogs(data);
         });
 });
 
@@ -85,3 +85,18 @@ async function worklogSend(e) {
         });
 }
 
+const stat = document.getElementById('status-select-button');
+if (stat) {
+    stat.addEventListener("click", async function (e) {
+        e.preventDefault();
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const name = document.getElementById('status-select').value;
+        await fetch(base + `status?name=${name}`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            }
+        })
+    })
+}

@@ -41,6 +41,14 @@
             <meta name="csrf-token" content="${_csrf.token}"/>
             <button type="submit" id="worklog-button">Add</button>
         </form>
+        <form method="post">
+            <label for="status-select">Set status</label><select id="status-select">
+                <option value="progress">Progress</option>
+                <option value="done">Done</option>
+                <option value="failed">Failed</option>
+            </select>
+            <button type="submit" id="status-select-button">Move</button>
+        </form>
     </div>
 </div>
 <script src="../workLog.js"></script>

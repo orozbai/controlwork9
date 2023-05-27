@@ -8,4 +8,7 @@ public interface StatusRepository extends JpaRepository<Status, Long> {
 
     @Query("select s from Status as s where s.id = :create")
     Status getByName(Long create);
+
+    @Query("select s from Status as s where s.status like :name")
+    Status findByName(String name);
 }

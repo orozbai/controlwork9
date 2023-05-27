@@ -47,6 +47,7 @@ function insertProductsElem(form) {
     const nameDiv = document.getElementById('name');
     const statusDiv = document.getElementById('status');
     const developerDiv = document.getElementById('developer');
+    const listButtons = document.getElementById('list-buttons');
     if (!id) {
         const name = document.createElement('p');
         name.innerHTML = 'Name';
@@ -81,6 +82,13 @@ function insertProductsElem(form) {
     developers.innerHTML = form.get('username');
     developers.classList.add('lineTask');
     developerDiv.appendChild(developers);
+
+    const button = document.createElement('button');
+    button.innerHTML = 'Worklog';
+    button.type = 'button';
+    button.classList.add('lineTask');
+    button.setAttribute('onclick', 'change("change-' + form.get('id') + '", event)');
+    listButtons.appendChild(button);
 }
 
 async function nextPage(id, event) {
@@ -189,8 +197,17 @@ window.addEventListener('load', async function (e) {
                 searchTasks.style.display = 'none';
             }
             if (data.user === 'MANAGER') {
-                const createTask = document.getElementById('');
+                const createTask = document.getElementById('create-task');
+                createTask.style.display = 'block'
+            } else {
+                const div = document.getElementById('list-change');
+                div.style.display = 'block'
             }
         }
     });
 });
+
+async function change(id, event) {
+    window.location.href = basicUrl + 'worklog';
+    localStorage.setItem('worklog', id);
+}

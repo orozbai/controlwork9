@@ -40,6 +40,11 @@
                         <p>Developer</p>
                     </div>
                 </div>
+                <div class="row" id="list-change" style="display: none">
+                    <div class="content-tasks" id="list-buttons">
+
+                    </div>
+                </div>
             </div>
         </div>
         <div id="right-column">
@@ -54,8 +59,10 @@
                     <button type="button">Login</button>
                 </a>
             </div>
-            <div id="create-task">
-                <a href="manager"><button>Create Task</button></a>
+            <div id="create-task" style="display: none">
+                <a href="manager">
+                    <button>Create Task</button>
+                </a>
             </div>
         </div>
     </div>

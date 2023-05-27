@@ -13,4 +13,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("select t from Task as t")
     List<Task> findAllTasks(Pageable pageable);
+
+    @Query("select t from Task as t where t.id = :id")
+    Task findTaskById(Long id);
 }

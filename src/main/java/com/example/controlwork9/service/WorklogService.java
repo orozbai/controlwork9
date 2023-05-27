@@ -1,0 +1,34 @@
+package com.example.controlwork9.service;
+
+import com.example.controlwork9.entity.Task;
+import com.example.controlwork9.entity.Worklog;
+import com.example.controlwork9.repository.TaskRepository;
+import com.example.controlwork9.repository.WorklogRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+@AllArgsConstructor
+public class WorklogService {
+    final private WorklogRepository worklogRepository;
+    final private TaskRepository taskRepository;
+
+    public List<Worklog> getWorklogsById(Long id) {
+        return worklogRepository.findWorkById(id);
+    }
+
+    public void saveWorklog(Long id, String desc, String time) {
+        Task task = taskRepository.findTaskById(id);
+        LocalDateTime dateTime = LocalDateTime.now();
+        Worklog worklog = Worklog.builder()
+                .created(dateTime)
+                .description(desc)
+                .time(time)
+                .task(task)
+                .build();
+        worklogRepository.save(worklog);
+    }
+}

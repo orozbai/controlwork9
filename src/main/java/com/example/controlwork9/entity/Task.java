@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -27,7 +28,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
-    @ManyToOne
-    @JoinColumn(name = "worklog_id")
-    private Worklog worklog;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+    @OrderBy("created ASC")
+    private List<Worklog> worklogs;
 }

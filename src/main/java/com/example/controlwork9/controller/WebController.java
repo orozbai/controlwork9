@@ -29,6 +29,12 @@ public class WebController {
         return "redirect:/login";
     }
 
+    @GetMapping("worklog")
+    public String workLog() {
+        return "worklog";
+    }
+
+
     @PostMapping("logout")
     public String logout() {
         SecurityContextHolder.clearContext();

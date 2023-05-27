@@ -1,0 +1,35 @@
+package com.example.controlwork9.controller;
+
+import com.example.controlwork9.dto.WorklogDto;
+import com.example.controlwork9.mapper.WorklogMapper;
+import com.example.controlwork9.service.WorklogService;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@AllArgsConstructor
+@RestController
+public class WorklogController {
+    final private WorklogMapper worklogMapper;
+    final private WorklogService worklogService;
+
+    @GetMapping("worklogs")
+    public List<WorklogDto> getAllById(@RequestParam(value = "id") Long id) {
+        return worklogService.getWorklogsById(id)
+                .stream()
+                .map(worklogMapper::fromWorklog)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping("work-save")
+    public void saveWorklog(@RequestParam(value = "id") Long id,
+                            @RequestParam(value = "description") String desc,
+                            @RequestParam(value = "time") String time) {
+        worklogService.saveWorklog(id, desc, time);
+    }
+}

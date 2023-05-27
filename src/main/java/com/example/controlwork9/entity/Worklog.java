@@ -22,7 +22,7 @@ public class Worklog {
     private String time;
     private String description;
     private LocalDateTime created;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "worklog")
-    @OrderBy("name ASC")
-    private List<Task> tasks;
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
 }

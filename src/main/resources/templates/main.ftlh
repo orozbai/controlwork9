@@ -15,24 +15,31 @@
 
         </div>
         <div id="content">
+            <div id="pages">
+                <button onclick="nextPage('page-0',event)">0</button>
+            </div>
             <div class="content-container">
                 <div class="row">
-                    <div class="header">Name</div>
-                    <p>Value1</p>
+                    <div class="content-tasks" id="name">
+                        <p>Name</p>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="header">Status</div>
-                    <p>Value1</p>
+                    <div class="content-tasks" id="status">
+                        <p>Status</p>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="header">Developer</div>
-                    <p>Value1</p>
-                    <p>Value1</p>
+                    <div class="content-tasks" id="developer">
+                        <p>Developer</p>
+                    </div>
                 </div>
             </div>
         </div>
         <div id="right-column">
-            <a href="/login"><button type="button">Login</button></a>
+            <a href="/login">
+                <button type="button">Login</button>
+            </a>
         </div>
     </div>
 </div>
